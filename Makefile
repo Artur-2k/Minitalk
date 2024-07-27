@@ -2,32 +2,35 @@ CLIENT_SRC = client.c
 CLIENT = client
 SERVER_SRC = server.c
 SERVER = server
-
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
-
+CFLAGS = -Wall -Wextra -Werror 
 LIB = libft.a
 LIB_PATH = ./Libft
 LIB_TARGET = $(LIB_PATH)/$(LIB)
 
 all: $(CLIENT) $(SERVER)
 
-$(CLIENT): $(CLIENT_SRC) $(LIB)
-	$(CC) $(CFLAGS) $(CLIENT_SRC) $(LIB) -o $(CLIENT)
+$(CLIENT): $(CLIENT_SRC) $(LIB) minitalk.h
+	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
-$(SERVER): $(SERVER_SRC) $(LIB)
-	$(CC) $(CFLAGS) $(SERVER_SRC) $(LIB) -o $(SERVER)
+$(SERVER): $(SERVER_SRC) $(LIB) minitalk.h
+	$(CC) $(CFLAGS) $< $(LIB) -o $@
 
-$(LIB):
-	echo Making libft.a...
-	make --silent -C $(LIB_PATH)
-	mv $(LIB_TARGET) .
+$(LIB): $(LIB_TARGET)
+	cp $< $@
+
+$(LIB_TARGET):
+	@echo "Making libft.a..."
+	@$(MAKE) -C $(LIB_PATH)
 
 clean:
-	make clean -C $(LIB_PATH)
-	rm -f $(LIB)
+	@$(MAKE) -C $(LIB_PATH) clean
+	@rm -f $(LIB)
 
 fclean: clean
-	rm -f $(CLIENT) $(SERVER)
+	@rm -f $(CLIENT) $(SERVER)
+	@$(MAKE) -C $(LIB_PATH) fclean
 
 re: fclean all
+
+.PHONY: all clean fclean re

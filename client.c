@@ -1,23 +1,21 @@
-#include <signal.h>
-#include "Libft/ft_printf.h"
-#include "Libft/libft.h"
+#include "minitalk.h"
 
 void	dynamic_sleep(int size)
 {
 	if (size < 100)
-		usleep(25);
-	else if (size < 200)
 		usleep(50);
-	else if (size < 400)
+	else if (size < 200)
 		usleep(100);
-	else if (size < 600)
+	else if (size < 400)
 		usleep(200);
+	else if (size < 600)
+		usleep(400);
 	else if (size < 800)
 		usleep(400);
 	else if (size < 1000)
 		usleep(800);
 	else
-		usleep(1250);
+		usleep(1600);
 }
 
 void	send_bit(int bit, __pid_t server_pid	)

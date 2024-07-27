@@ -1,14 +1,5 @@
-/*
- * Feature test macros are special directives
- * used in programming, particularly in C and
- * C++, to control which functionalities are available
- * to your code.  They essentially act as a switch to
- * enable or disable certain features depending on the context.
-*/
 #define _POSIX_C_SOURCE 200809L
-#include <signal.h>
-#include "Libft/ft_printf.h"
-#include "Libft/libft.h"
+#include "minitalk.h"
 
 void	bit_to_char(int bit)
 {

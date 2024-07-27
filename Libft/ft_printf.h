@@ -6,12 +6,12 @@
 /*   By: artuda-s < artuda-s@student.42porto.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 17:37:54 by artuda-s          #+#    #+#             */
-/*   Updated: 2024/07/13 16:34:31 by artuda-s         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:41:33 by artuda-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ft_printf_H
-# define ft_printf_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include "libft.h"
 # include <limits.h>
