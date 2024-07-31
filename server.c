@@ -108,7 +108,7 @@ int	main(void)
 	ft_printf("\n The server's process id is: %d\n", getpid());
 	ft_printf("\nPress ctrl + z to close the server.\n");
 	ft_printf("\nWaiting for something to happen...\n");
-	sigaction(SIGUSR1, &sa1, NULL);
+	sigaction(SIGUSR1, &sa1, NULL); // siginfo_t *info saves the sender pid so i can just send another signal back to the client and interpret it as a recieved message
 	sigaction(SIGUSR2, &sa2, NULL);
 	while (1)
 		pause();
