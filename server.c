@@ -1,17 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: artuda-s <artuda-s@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/31 13:16:03 by artuda-s          #+#    #+#             */
+/*   Updated: 2024/07/31 13:17:01 by artuda-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #define _POSIX_C_SOURCE 200809L
 #include "minitalk.h"
 
+unsigned char	*append_char_to_str(unsigned char *str, char c)
+{
+	unsigned char	*nstr;
+	int				i;
+
+	i = 0;
+	while (str && str[i++])
+		i++;
+	nstr = (unsigned char *)malloc(sizeof(char) * i + 2);
+	if (!nstr)
+		return (NULL);
+	i = 0;
+	while (str && str[i])
+	{
+		nstr[i] = str[i];
+		i++;
+	}
+	nstr[i] = c;
+	nstr[++i] = 0;
+	return (nstr);
+}
+
 void	bit_to_char(int bit)
 {
+	static unsigned char	*message;
 	static unsigned char	c;
 	static int				idx_bit;
-	static int				first_call = 1;
 
-	if (first_call == 1)
-	{
-		first_call = 0;
-		ft_printf("Client said: ");
-	}
 	if (bit == 1)
 		c = (c << 1) | 1;
 	else
@@ -20,12 +49,13 @@ void	bit_to_char(int bit)
 		idx_bit++;
 	else
 	{
-		if (c != 0)
-			write(1, &c, 1);
-		else
-			write(1, "\n", 1);
+		message = append_char_to_str(message, c);
 		if (c == 0)
-			first_call = 1;
+		{
+			ft_printf("Client said: %s\n", message);
+			free(message);
+			message = NULL;
+		}
 		idx_bit = 0;
 	}
 }
