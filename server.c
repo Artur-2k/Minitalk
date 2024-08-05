@@ -13,25 +13,26 @@
 #define _POSIX_C_SOURCE 200809L
 #include "minitalk.h"
 
-unsigned char	*append_char_to_str(unsigned char *str, char c)
+unsigned char	*append_char_to_str(unsigned char *str, unsigned char c)
 {
 	unsigned char	*nstr;
-	int				i;
+	size_t			len;
 
-	i = 0;
-	while (str && str[i++])
-		i++;
-	nstr = (unsigned char *)malloc(sizeof(char) * i + 2);
+	len = 0;
+	if (str)
+		len = ft_strlen((const char *)str);
+	nstr = (unsigned char *)malloc(sizeof(unsigned char) * len + 2);
 	if (!nstr)
-		return (NULL);
-	i = 0;
-	while (str && str[i])
+		return (free(str), NULL);
+	len = 0;
+	while (str && str[len])
 	{
-		nstr[i] = str[i];
-		i++;
+		nstr[len] = str[len];
+		len++;
 	}
-	nstr[i] = c;
-	nstr[++i] = 0;
+	nstr[len] = c;
+	nstr[++len] = '\0';
+	free(str);
 	return (nstr);
 }
 
